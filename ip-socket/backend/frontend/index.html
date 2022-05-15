@@ -78,64 +78,61 @@
     </div>
     <div style="height: 20px;"> <!-- spacer --> </div>
 
-    <script>
-        var unused = _ => {
-            // var encode_url_query_params = (data_obj) => {
-            //     var data_arr = [];
-            //     for (var d in data_obj)
-            //         data_arr.push(`${window.encodeURIComponent(d)}=${window.encodeURIComponent(data_obj[d])}`);
-            //     return data_arr.join('&');
-            // };
-            // var post = (endpoint, body, success, failure) => {
-            //     $.ajax({
-            //         url: endpoint,
-            //         type: "POST",
-            //         data: JSON.stringify(body),
-            //         success: (data) => {
-            //             console.log(`POST to ${endpoint}`);
-            //             success(data);
-            //         },
-            //         error: (xhr, status, error) => {
-            //             console.error(status);
-            //             console.log(xhr.responseJSON);
-            //             console.log(error);
-            //             failure(xhr.responseJSON, error, status);
-            //         },
-            //     });
-            // };
-            // var get = (endpoint, params, success, failure) => {
-            //     var query_string = encode_url_query_params(params);
-            //     var query_url = `${endpoint}?${query_string}`;
-            //     $.ajax({
-            //         url: query_url,
-            //         type: "GET",
-            //         success: (data) => {
-            //             console.log(`GET to ${query_url}`);
-            //             success(data);
-            //         },
-            //         error: (xhr, status, error) => {
-            //             console.error(status);
-            //             console.log(xhr.responseJSON);
-            //             console.log(error);
-            //             failure(xhr.responseJSON, error, status);
-            //         },
-            //     });
-            // };
-            // 
-            // 
-            // app.web.post("ip_internal", {
-            //     auth: password,
-            // }, (data) => {
-            //     if (data.success && data.hasOwnProperty('data') && callback)
-            //         callback(data.data);
-            // }, (data, error, status) => {
-            //     console.error(`HTTP request error with "generate_recommendations": ${status}`);
-            //     if (data.hasOwnProperty('message')) {
-            //         console.log(data.message);
-            //         app.ui.display_modal.generic_confirm("Recommendations Model Error", `Server Error: ${data.message}`, (s) => { /* console.log(s); */ });
-            //     }
-            // });
+    <script type="text/javascript">
+        var encode_url_query_params = (data_obj) => {
+            var data_arr = [];
+            for (var d in data_obj)
+                data_arr.push(`${window.encodeURIComponent(d)}=${window.encodeURIComponent(data_obj[d])}`);
+            return data_arr.join('&');
         };
+        var post = (endpoint, body, success, failure) => {
+            $.ajax({
+                url: endpoint,
+                type: "POST",
+                data: JSON.stringify(body),
+                success: (data) => {
+                    console.log(`POST to ${endpoint}`);
+                    success(data);
+                },
+                error: (xhr, status, error) => {
+                    console.error(status);
+                    console.log(xhr.responseJSON);
+                    console.log(error);
+                    failure(xhr.responseJSON, error, status);
+                },
+            });
+        };
+        var get = (endpoint, params, success, failure) => {
+            var query_string = encode_url_query_params(params);
+            var query_url = `${endpoint}?${query_string}`;
+            $.ajax({
+                url: query_url,
+                type: "GET",
+                success: (data) => {
+                    console.log(`GET to ${query_url}`);
+                    success(data);
+                },
+                error: (xhr, status, error) => {
+                    console.error(status);
+                    console.log(xhr.responseJSON);
+                    console.log(error);
+                    failure(xhr.responseJSON, error, status);
+                },
+            });
+        };
+        
+        // app.web.post("ip_internal", {
+        //     auth: password,
+        // }, (data) => {
+        //     if (data.success && data.hasOwnProperty('data') && callback)
+        //         callback(data.data);
+        // }, (data, error, status) => {
+        //     console.error(`HTTP request error with "generate_recommendations": ${status}`);
+        //     if (data.hasOwnProperty('message')) {
+        //         console.log(data.message);
+        //         app.ui.display_modal.generic_confirm("Recommendations Model Error", `Server Error: ${data.message}`, (s) => { /* console.log(s); */ });
+        //     }
+        // });
     </script>
 
 </body>

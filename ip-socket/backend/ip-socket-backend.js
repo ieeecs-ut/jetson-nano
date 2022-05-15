@@ -82,22 +82,19 @@ http.listen(PORT, () => {
     console.log(`[web] listening on port ${PORT}`);
 });
 
-// io.emit('ip_internal', msg);
-
-
 
 // unused
-// var web_return_data = (req, res, data) => {
-//     res.status(200);
-//     res.setHeader('content-type', 'application/json');
-//     res.send(JSON.stringify(data, null, 2));
-//     return null;
-// };
-// var web_return_error = (req, res, code, msg) => {
-//     res.status(code);
-//     res.setHeader('content-type', 'application/json');
-//     res.send(JSON.stringify({
-//         status: code,
-//         message: msg
-//     }, null, 2));
-// };
+var web_return_data = (req, res, data) => {
+    res.status(200);
+    res.setHeader('content-type', 'application/json');
+    res.send(JSON.stringify(data, null, 2));
+    return null;
+};
+var web_return_error = (req, res, code, msg) => {
+    res.status(code);
+    res.setHeader('content-type', 'application/json');
+    res.send(JSON.stringify({
+        status: code,
+        message: msg
+    }, null, 2));
+};
