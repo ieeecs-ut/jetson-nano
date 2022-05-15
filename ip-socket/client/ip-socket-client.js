@@ -3,7 +3,7 @@ const axios = require("axios");
 const { io } = require("socket.io-client");
 
 const PROD = true;
-const HOST = PROD ? "nano.anuv.me" : "localhost";
+const HOST = PROD ? (process.env.GW_HOST != undefined && process.env.GW_HOST != null ? process.env.GW_HOST : "ieeecs-nano.herokuapp.com") : "localhost";
 const PORT = PROD ? 80 : 3000;
 const SECURE = false;
 const AUTH = PROD ? (process.env.AUTH_PWD != undefined && process.env.AUTH_PWD != null ? process.env.AUTH_PWD : "password") : "password";
