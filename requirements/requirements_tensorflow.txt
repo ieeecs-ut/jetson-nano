@@ -1,5 +1,4 @@
 numpy==1.19.3
-#scipy==1.5.0
 future==0.18.2
 mock==3.0.5
 keras_preprocessing==1.1.2
@@ -10,4 +9,7 @@ pybind11
 cython
 pkgconfig
 #h5py==3.1.0
+#scipy==1.5.0
 #tensorflow
+
+# run python3 -m pip install --no-deps -U -r requirements_initial.txt
