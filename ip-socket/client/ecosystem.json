@@ -9,7 +9,10 @@
             "interpreter": "/usr/local/bin/node",
             "max_memory_restart": "200M",
             "restart_delay": "3000",
-            "args": "prod"
+            "args": "prod",
+            "env": {
+                "PORT": 80
+            }
         }
     ]
 }
