@@ -1,0 +1,15 @@
+{
+    "apps": [
+        {
+            "name": "ip-socket-client",
+            "script": "/home/ieeecs/Documents/Projects/jetson-nano/ip-socket/client/ip-socket-client.js",
+            "cwd": "/home/ieeecs/Documents/Projects/jetson-nano/ip-socket/client",
+            "error_file": "/home/ieeecs/Documents/Projects/jetson-nano/ip-socket/client/ip-socket-client.log",
+            "out_file": "/home/ieeecs/Documents/Projects/jetson-nano/ip-socket/client/ip-socket-client.log",
+            "interpreter": "/usr/local/bin/node",
+            "max_memory_restart": "200M",
+            "restart_delay": "3000",
+            "args": "prod"
+        }
+    ]
+}
