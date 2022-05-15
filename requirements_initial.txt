@@ -1,0 +1,8 @@
+pip
+wheel
+cython
+pybind11
+testresources
+setuptools==49.6.0
+
+# run python3 -m pip install -U -r requirements_initial.txt
