@@ -13,26 +13,25 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <style type="text/css">
         @import url('https://fonts.googleapis.com/css?family=Barlow:300italic,600italic,300,400,500,600');
-
         body {
             text-align: center;
             background-color: #111;
             color: #eee;
         }
-
         * {
             font-family: 'Barlow', Trebuchet, Verdana, Helvetica, Arial, sans-serif;
         }
-
-        button#extract-internal-ip-address {
+        button#extract-internal-ip {
             padding: 4px 14px;
             cursor: pointer;
             opacity: 1;
             transition: opacity 0.2s ease;
         }
-
-        button#extract-internal-ip-address:hover {
+        button#extract-internal-ip:hover {
             opacity: 0.9;
+        }
+        span#extract-internal-ip-output {
+            font-weight: bold;
         }
     </style>
     <script type="text/javascript">
@@ -47,21 +46,16 @@
             console.log(socket.id);
             console.log(socket.connected);
         });
-        // socket.on('chat message', function (msg) {
-        //     var item = document.createElement('li');
-        //     item.textContent = msg;
-        //     messages.appendChild(item);
-        //     window.scrollTo(0, document.body.scrollHeight);
-        // });
-        // socket.on('ip_internal', (msg) => {
-        // });
-        socket.emit("auth_nano", AUTH);
+        socket.on('ip_internal', (ips) => {
+            // alert(ips);
+            $("span#extract-internal-ip-output")[0].innerHTML = (ips);
+        });
 
         $(document).ready(_ => {
-            socket.listen();
-            $("button#extract-internal-ip-address").click(_ => {
+            $("button#extract-internal-ip").click(_ => {
                 var password = prompt('Password: ');
                 if (password && password.trim() != '') {
+                    $("span#extract-internal-ip-output")[0].innerHTML = '...';
                     socket.emit('ip_internal', password);
                 }
             });
@@ -79,7 +73,7 @@
         <br /><br />
         <h3>Control Panel</h3>
         <label>Internal IP Address:&nbsp;&nbsp;</label>
-        <button id="extract-internal-ip-address">Extract</button>
+        <span id="extract-internal-ip-output">?</span>&nbsp;&nbsp;&nbsp;<button id="extract-internal-ip">Extract</button>
         <br />
     </div>
     <div style="height: 20px;"> <!-- spacer --> </div>

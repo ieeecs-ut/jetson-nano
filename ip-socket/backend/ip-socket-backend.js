@@ -2,8 +2,9 @@ const Http = require('http');
 const Express = require('express');
 const { Server } = require("socket.io");
 
-const PORT = 3000;
-const CLIENT_LIM = 2;
+const PROD = true;
+const PORT = PROD ? 3040 : 3000;
+const CLIENT_LIM = 5;
 const AUTH = "password";
 
 var web = Express();
@@ -49,15 +50,28 @@ ws.on('connection', (socket) => {
                 nano_client_id = "";
         });
         socket.on('auth_nano', (auth) => {
-            if (auth == AUTH)
+            if (auth == AUTH) {
                 nano_client_id = socket.id;
+                console.log(`[ws] nano identified: ${nano_client_id}`);
+            }
         });
         socket.on('ip_internal', (auth) => {
             if (auth == AUTH) {
+                console.log("[ws] ip internal requested");
                 if (nano_client_id != "") {
                     if (clients.hasOwnProperty(nano_client_id)) {
-                        io.sockets.socket(nano_client_id).emit('ip_internal', AUTH);
+                        ws.to(nano_client_id).emit('ip_internal', AUTH);
                     } else nano_client_id = "";
+                }
+            }
+        });
+        socket.on('ip_internal_res', (auth, ips) => {
+            if (auth == AUTH) {
+                console.log("[ws] ip internal returned");
+                for (var c_id in clients) {
+                    if (c_id != nano_client_id && clients.hasOwnProperty(c_id)) {
+                        ws.to(c_id).emit('ip_internal', ips);
+                    }
                 }
             }
         });
