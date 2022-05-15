@@ -42,7 +42,7 @@
         button#extract-ngrok-domain:hover {
             opacity: 0.9;
         }
-        span#extract-ngrok-domain-output {
+        a#extract-ngrok-domain-output {
             font-weight: bold;
         }
     </style>
@@ -64,7 +64,9 @@
         });
         socket.on('ngrok_domain', (ngd) => {
             // alert(ngd);
-            $("span#extract-ngrok-domain-output")[0].innerHTML = (ngd);
+            $("a#extract-ngrok-domain-output")[0].innerHTML = (ngd);
+            $("a#extract-ngrok-domain-output")[0].href = (ngd);
+            $("a#extract-ngrok-domain-output")[0].target = '_blank';
         });
 
         $(document).ready(_ => {
@@ -99,7 +101,7 @@
         <span id="extract-internal-ip-output">?</span>&nbsp;&nbsp;&nbsp;<button id="extract-internal-ip">Extract</button>
         <br />
         <label>Ngrok Domain:&nbsp;&nbsp;</label>
-        <span id="extract-ngrok-domain-output">?</span>&nbsp;&nbsp;&nbsp;<button id="extract-ngrok-domain">Extract</button>
+        <a id="extract-ngrok-domain-output">?</a>&nbsp;&nbsp;&nbsp;<button id="extract-ngrok-domain">Extract</button>
         <br/>
     </div>
     <div style="height: 20px;"> <!-- spacer --> </div>

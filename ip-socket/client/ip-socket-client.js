@@ -27,7 +27,8 @@ var extract_ngrok_domain = next => {
         .then(res => {
             try {
                 if (res.status == 200) {
-                    var domain = JSON.parse(res.data)['tunnels'][0]['public_url'];
+                    console.log(res.data);
+                    var domain = res.data['tunnels'][0]['public_url'];
                     next(domain);
                 } else {
                     console.log(`statusCode: ${res.status}`);
