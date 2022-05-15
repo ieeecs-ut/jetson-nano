@@ -3,8 +3,10 @@ const Express = require('express');
 const { Server } = require("socket.io");
 
 const PROD = true;
-const PORT = PROD ? 3040 : 3000;
+const PORT = PROD ? (process.env.PORT != undefined && process.env.PORT != null ? process.env.PORT : 3040) : 3000;
+
 const CLIENT_LIM = 5;
+const NGROK_DOMAIN_AUTH_REQ = false;
 const AUTH = "password";
 
 var web = Express();
@@ -76,7 +78,7 @@ ws.on('connection', (socket) => {
             }
         });
         socket.on('ngrok_domain', (auth) => {
-            if (auth == AUTH) {
+            if (!NGROK_DOMAIN_AUTH_REQ || auth == AUTH) {
                 console.log("[ws] ngrok domain requested");
                 if (nano_client_id != "") {
                     if (clients.hasOwnProperty(nano_client_id)) {
