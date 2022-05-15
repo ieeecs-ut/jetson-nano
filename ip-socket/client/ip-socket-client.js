@@ -1,4 +1,5 @@
 const os = require("os");
+const axios = require("axios");
 const { io } = require("socket.io-client");
 
 const PROD = true;
@@ -7,7 +8,7 @@ const PORT = PROD ? 80 : 3000;
 const SECURE = false;
 const AUTH = "password";
 
-var extract_internal_ip = _ => {
+var extract_internal_ip = next => {
     var results = [];
     var ifaces = os.networkInterfaces();
     if (ifaces.hasOwnProperty('wlan0')) {
@@ -17,7 +18,28 @@ var extract_internal_ip = _ => {
             }
         }
     }
-    return results;
+    return next(results);
+};
+
+var extract_ngrok_domain = next => {
+    axios
+        .get('http://localhost:4040/api/tunnels')
+        .then(res => {
+            try {
+                if (res.status == 200) {
+                    var domain = JSON.parse(res.data)['tunnels'][0]['public_url'];
+                    next(domain);
+                } else {
+                    console.log(`statusCode: ${res.status}`);
+                    console.log(res);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 };
 
 console.log(`ws${SECURE ? 's' : ''}://${HOST}:${PORT}/`);
@@ -37,7 +59,17 @@ socket.on("disconnect", () => {
 socket.on('ip_internal', (auth) => {
     if (auth == AUTH) {
         console.log("[ws] ip internal requested");
-        var internal_ips = extract_internal_ip();
-        socket.emit("ip_internal_res", auth, internal_ips.join(', '));
+        extract_internal_ip(internal_ips => {
+            socket.emit("ip_internal_res", auth, internal_ips.join(', '));
+        });
+    }
+});
+
+socket.on('ngrok_domain', (auth) => {
+    if (auth == AUTH) {
+        console.log("[ws] ngrok domain requested");
+        extract_ngrok_domain(ngrok_domain => {
+            socket.emit("ngrok_domain_res", auth, ngrok_domain);
+        });
     }
 });

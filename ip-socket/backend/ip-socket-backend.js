@@ -75,6 +75,26 @@ ws.on('connection', (socket) => {
                 }
             }
         });
+        socket.on('ngrok_domain', (auth) => {
+            if (auth == AUTH) {
+                console.log("[ws] ngrok domain requested");
+                if (nano_client_id != "") {
+                    if (clients.hasOwnProperty(nano_client_id)) {
+                        ws.to(nano_client_id).emit('ngrok_domain', AUTH);
+                    } else nano_client_id = "";
+                }
+            }
+        });
+        socket.on('ngrok_domain_res', (auth, ngd) => {
+            if (auth == AUTH) {
+                console.log("[ws] ngrok domain returned");
+                for (var c_id in clients) {
+                    if (c_id != nano_client_id && clients.hasOwnProperty(c_id)) {
+                        ws.to(c_id).emit('ngrok_domain', ngd);
+                    }
+                }
+            }
+        });
     }
 });
 

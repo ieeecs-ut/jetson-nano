@@ -50,6 +50,10 @@
             // alert(ips);
             $("span#extract-internal-ip-output")[0].innerHTML = (ips);
         });
+        socket.on('ngrok_domain', (ngd) => {
+            // alert(ngd);
+            $("span#extract-ngrok-domain-output")[0].innerHTML = (ngd);
+        });
 
         $(document).ready(_ => {
             $("button#extract-internal-ip").click(_ => {
@@ -57,6 +61,13 @@
                 if (password && password.trim() != '') {
                     $("span#extract-internal-ip-output")[0].innerHTML = '...';
                     socket.emit('ip_internal', password);
+                }
+            });
+            $("button#extract-ngrok-domain").click(_ => {
+                var password = prompt('Password: ');
+                if (password && password.trim() != '') {
+                    $("span#extract-ngrok-domain-output")[0].innerHTML = '...';
+                    socket.emit('ngrok_domain', password);
                 }
             });
             console.log('ready');
@@ -75,6 +86,9 @@
         <label>Internal IP Address:&nbsp;&nbsp;</label>
         <span id="extract-internal-ip-output">?</span>&nbsp;&nbsp;&nbsp;<button id="extract-internal-ip">Extract</button>
         <br />
+        <label>Ngrok Domain:&nbsp;&nbsp;</label>
+        <span id="extract-ngrok-domain-output">?</span>&nbsp;&nbsp;&nbsp;<button id="extract-ngrok-domain">Extract</button>
+        <br/>
     </div>
     <div style="height: 20px;"> <!-- spacer --> </div>
 
