@@ -80,7 +80,7 @@
             $("button#extract-ngrok-domain").click(_ => {
                 var password = prompt('Password: ');
                 if (password && password.trim() != '') {
-                    $("span#extract-ngrok-domain-output")[0].innerHTML = '...';
+                    $("a#extract-ngrok-domain-output")[0].innerHTML = '...';
                     socket.emit('ngrok_domain', password);
                 }
             });
