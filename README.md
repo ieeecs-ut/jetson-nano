@@ -1,7 +1,6 @@
 # jetson-nano
 In-office Jetson Nano server configuration &amp; information.
 
-
 ## software setup
 essential:
 - build-essential
@@ -54,5 +53,6 @@ pip:
     - tensorflow (not tensorflow-gpu, was renamed into tensorflow)
         - sudo pip3 install --pre --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v46 tensorflow
 
-
-https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform/index.html
+## guides
+ - https://docs.nvidia.com/deeplearning/frameworks/install-tf-jetson-platform/index.html
+ - https://stackoverflow.com/questions/65631801/illegal-instructioncore-dumped-error-on-jetson-nano
