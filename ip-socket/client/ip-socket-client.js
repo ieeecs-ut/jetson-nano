@@ -6,7 +6,7 @@ const PROD = true;
 const HOST = PROD ? "nano.anuv.me" : "localhost";
 const PORT = PROD ? 80 : 3000;
 const SECURE = false;
-const AUTH = "password";
+const AUTH = PROD ? (process.env.AUTH_PWD != undefined && process.env.AUTH_PWD != null ? process.env.AUTH_PWD : "password") : "password";
 
 var extract_internal_ip = next => {
     var results = [];
