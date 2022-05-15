@@ -47,6 +47,7 @@
         }
     </style>
     <script type="text/javascript">
+        const NGROK_DOMAIN_AUTH_REQ = false;
         var socket = io();
         socket.on("connect", () => {
             console.log("[ws] connected");
@@ -78,8 +79,10 @@
                 }
             });
             $("button#extract-ngrok-domain").click(_ => {
-                var password = prompt('Password: ');
-                if (password && password.trim() != '') {
+                var password = '';
+                if (NGROK_DOMAIN_AUTH_REQ)
+                    password = prompt('Password: ');
+                if (!NGROK_DOMAIN_AUTH_REQ || (password && password.trim() != '')) {
                     $("a#extract-ngrok-domain-output")[0].innerHTML = '...';
                     socket.emit('ngrok_domain', password);
                 }
