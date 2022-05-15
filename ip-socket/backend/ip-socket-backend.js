@@ -7,7 +7,7 @@ const PORT = PROD ? (process.env.PORT != undefined && process.env.PORT != null ?
 
 const CLIENT_LIM = 5;
 const NGROK_DOMAIN_AUTH_REQ = false;
-const AUTH = "password";
+const AUTH = PROD ? (process.env.AUTH_PWD != undefined && process.env.AUTH_PWD != null ? process.env.AUTH_PWD : "password") : "password";
 
 var web = Express();
 var http = Http.createServer(web);
