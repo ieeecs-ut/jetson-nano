@@ -32,20 +32,10 @@
             text-decoration: none;
             cursor: pointer;
         }
-        button#extract-internal-ip {
-            padding: 4px 14px;
-            cursor: pointer;
-            opacity: 1;
-            transition: opacity 0.2s ease;
-        }
-        button#extract-internal-ip:hover {
-            opacity: 0.9;
-        }
         span#extract-internal-ip-output {
             font-weight: bold;
         }
         button#extract-ngrok-domain {
-            padding: 4px 14px;
             cursor: pointer;
             opacity: 1;
             transition: opacity 0.2s ease;
@@ -55,6 +45,18 @@
         }
         a#extract-ngrok-domain-output {
             font-weight: bold;
+        }
+        button {
+            color: #eee;
+            border: none;
+            background-color: #222;
+            outline: none;
+            border-radius: 3px;
+            padding: 8px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #333;
         }
     </style>
     <script type="text/javascript">
@@ -98,6 +100,9 @@
                     socket.emit('ngrok_domain', password);
                 }
             });
+            setTimeout(_ => {
+                $("button#extract-ngrok-domain").click();
+            }, 200);
             console.log('ready');
         });
     </script>
@@ -112,10 +117,10 @@
         <br /><br />
         <h3>Control Panel</h3>
         <label>Internal IP Address:&nbsp;&nbsp;</label>
-        <span id="extract-internal-ip-output">?</span>&nbsp;&nbsp;&nbsp;<button id="extract-internal-ip">Extract</button>
+        <span id="extract-internal-ip-output">?</span>&nbsp;&nbsp;&nbsp;<button id="extract-internal-ip" style="transition: background-color 0.2s ease;">Extract</button>
         <div style="height:10px;"></div>
         <label>Ngrok Domain:&nbsp;&nbsp;</label>
-        <a id="extract-ngrok-domain-output">?</a>&nbsp;&nbsp;&nbsp;<button id="extract-ngrok-domain">Extract</button>
+        <a id="extract-ngrok-domain-output">?</a>&nbsp;&nbsp;&nbsp;<button id="extract-ngrok-domain" style="transition: background-color 0.2s ease;">Extract</button>
         <br/>
     </div>
     <div style="height: 20px;"> <!-- spacer --> </div>
